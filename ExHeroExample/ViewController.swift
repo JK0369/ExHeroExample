@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 class ViewController: UIViewController {
   private let button: UIButton = {
@@ -30,6 +31,11 @@ class ViewController: UIViewController {
     self.button.heightAnchor.constraint(equalToConstant: 50).isActive = true
     
     self.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+    
+    self.navigationController?.isHeroEnabled = true
+    
+    self.button.isHeroEnabled = true
+    self.button.hero.id = "myAnimation"
   }
   
   @objc private func didTapButton() {

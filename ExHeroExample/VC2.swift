@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 class VC2: UIViewController {
   private enum Constants {
@@ -20,6 +21,8 @@ class VC2: UIViewController {
     label.backgroundColor = .systemGray
     label.textAlignment = .center
     label.text = "예제 타이틀"
+    label.isHeroEnabled = true
+    label.hero.id = "myAnimation"
     return label
   }()
   private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -48,7 +51,7 @@ class VC2: UIViewController {
     self.collectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
     self.collectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
     self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -56).isActive = true
-    self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 400).isActive = true
+    self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 200).isActive = true
     self.collectionView.dataSource = self
     
     self.view.addSubview(self.titleLabel)
@@ -57,6 +60,8 @@ class VC2: UIViewController {
     self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     self.titleLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
     self.titleLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    
+    self.collectionView.hero.modifiers = [.cascade]
   }
 }
 
@@ -67,6 +72,7 @@ extension VC2: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as! MyCell
     cell.prepare(text: "\(self.dataSource[indexPath.item])")
+    cell.hero.modifiers = [.fade, .scale(0.5)]
     return cell
   }
 }
